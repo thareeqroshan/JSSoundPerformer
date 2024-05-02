@@ -44,8 +44,8 @@ function startRecording() {
 
   const actx = Tone.context;
   const dest = actx.createMediaStreamDestination();
-  let options = { mimeType: "audio/webm" };
-  mediaRecorder = new MediaRecorder(dest.stream);
+  let options = { mimeType: "audio/webm;codecs=opus" };
+  mediaRecorder = new MediaRecorder(dest.stream, options);
   mediaRecorder.addEventListener("dataavailable", handleDataAvailable);
   audio.connect(dest);
   //   audio.toMaster();
@@ -85,11 +85,11 @@ function handleDataAvailable(event) {
 }
 
 function downloadRecordedChunks() {
-  const blob = new Blob(recordedChunks, { type: "audio/ogg", codecs: "opus" });
+  const blob = new Blob(recordedChunks, { type: "audio/webm;codecs=opus" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = fileName + "_output.ogg";
+  a.download = fileName + "_output.webm";
   a.click();
   window.URL.revokeObjectURL(url);
 }
