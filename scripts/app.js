@@ -36,6 +36,7 @@ resetParameters();
 
 let mediaRecorder;
 let recordedChunks = [];
+let fileName;
 
 function startRecording() {
   isRecording = true;
@@ -43,6 +44,7 @@ function startRecording() {
 
   const actx = Tone.context;
   const dest = actx.createMediaStreamDestination();
+  let options = { mimeType: "audio/webm" };
   mediaRecorder = new MediaRecorder(dest.stream);
   mediaRecorder.addEventListener("dataavailable", handleDataAvailable);
   audio.connect(dest);
@@ -59,6 +61,8 @@ function loadFile() {
   input.accept = "audio/*";
   input.onchange = function (event) {
     const file = event.target.files[0];
+    fileName = file.name;
+    fileName = fileName.replace(/\.[^/.]+$/, "");
     const fileURL = URL.createObjectURL(file);
     const buffer = new Tone.ToneAudioBuffer(fileURL);
     audio.buffer = buffer; // Replace the source for the audio object
@@ -73,6 +77,7 @@ function stopRecording() {
 
 function clearRecordedChunks() {
   recordedChunks = [];
+  //   mediaRecorder.clear();
 }
 
 function handleDataAvailable(event) {
@@ -84,7 +89,7 @@ function downloadRecordedChunks() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "output.ogg";
+  a.download = fileName + "_output.ogg";
   a.click();
   window.URL.revokeObjectURL(url);
 }
@@ -193,6 +198,6 @@ function removeVisualFeedback() {
 function resetVisualFeedback() {
   //   let feedback = document.querySelector(".feedback");
   let offsets = xyPad.getBoundingClientRect();
-  feedback.style.left = (offsets.left + offsets.right) / 2 - 10 + "px";
+  feedback.style.left = (offsets.right - offsets.left) / 2 - 10 + "px";
   feedback.style.top = (offsets.bottom - offsets.top) / 2 - 10 + "px";
 }
