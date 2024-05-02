@@ -2,7 +2,9 @@
 // Get the audio element
 // const audioCtx = new AudioContext();
 // const audio = new Audio("../assets/track01.wav");
-const audio = new window.Tone.Player("../assets/track01.wav");
+const audio = new window.Tone.Player(
+  "https://github.com/thareeqroshan/JSSoundPerformer/raw/main/assets/track01.wav"
+);
 const gainNode = new window.Tone.Gain(1.0);
 const pitchShifter = new window.Tone.PitchShift().toDestination();
 audio.connect(gainNode);
