@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSSoundPerformer</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>JS Sound Performer</h1>
+
+    <!-- Your content goes here -->
+    <!-- <script
+      type="module"
+      src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.9.17/Tone.min.js"
+    ></script> -->
+  </body>
+</html>
+<div>
+  <button class="loadFile">LoadFile</button>
+  <button id="playButton">Play</button>
+  <button id="pauseButton">Pause</button>
+  <button id="stopButton">Stop</button>
+  <button class="recordButton">Record</button>
+  <button class="downloadButton">Download</button>
+  <input
+    type="range"
+    id="volumeSlider"
+    min="0.1"
+    max="1"
+    value="1"
+    step="0.1"
+  />
+  <div class="xy-pad-parent">
+    <div class="y-axis-label">Pitch</div>
+    <div id="xy-pad">
+      <div class="feedback"></div>
+    </div>
+  </div>
+  <div class="x-axis-label">PlayRate</div>
+</div>
+<script src="scripts/Tone.js"></script>
+<script src="scripts/app.js"></script>
